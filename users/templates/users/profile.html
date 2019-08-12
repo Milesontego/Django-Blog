@@ -1,0 +1,12 @@
+{% extends 'subProject/base.html' %}
+{% block body %}
+ <div class="row">
+   <div class="col-md-6 mx-auto text-center bg-dark p-5 mt-3 text-light">
+       <img style="border-radius:50%; display:block; margin:auto; magin-bottom:2rem;" src="{{ user.profile.image.url }}" width="150rem" height="150rem">
+       <a href="{% url 'profile-image' %}" class="btn btn-outline-primary">Add Profile image</a>
+    <h4 class="py-1">{{user.username}}</h4>
+    <h4 class="py-1">{{user.email}}</h4>
+   </div>
+
+ </div>
+{% endblock %}

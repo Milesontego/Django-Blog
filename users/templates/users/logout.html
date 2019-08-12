@@ -1,0 +1,17 @@
+
+{% extends 'subProject/base.html' %}
+
+{% block body %}
+
+{% load crispy_forms_tags %}
+<div class="row">
+    <div class="col-md-6 mx-auto p-4">
+        <div class="card">
+            <h4>you are logout of your account</h4>
+            <a href="{% url 'login' %}">Login Again</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

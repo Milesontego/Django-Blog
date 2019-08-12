@@ -1,0 +1,10 @@
+{% extends 'subProject/base.html' %}
+
+{% block body %}
+<h1>Welcome worker</h1>
+
+<form action="{% url 'upload' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+
+    <button type="submit" name="submit">Submit</button>
+</form>
+{% endblock %}

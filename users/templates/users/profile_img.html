@@ -1,0 +1,14 @@
+{% extends 'subProject/base.html' %}
+{% block body %}
+ <div class="row">
+   <div class="col-md-6 mx-auto text-center bg-dark p-5 mt-3 text-light">
+      <h4>Add Profile Image</h4>
+{% load crispy_forms_tags %}
+       <form action="{% url 'profile-image' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+           {{form|crispy}}
+           <button type="submit" class="btn btn-outline-warning">Selected</button>
+       </form>
+   </div>
+
+ </div>
+{% endblock %}

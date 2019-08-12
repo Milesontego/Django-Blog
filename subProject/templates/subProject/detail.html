@@ -1,0 +1,84 @@
+{% extends 'subProject/base.html' %}
+
+{% block body %}
+<div class="row p-5">
+    <div class="col-md-10 mx-auto box_post">
+    <h1 class="p-5"> {{post.title}} </h1>
+      
+           <img class="px-4 img-fluid" src="{{post.picture.url}}">
+           <div class="p-3">
+           <h4>{{post.title}}</h4>
+           <p>{{post.author}}</p>
+           <p>{{post.timestamp}}</p>
+           <p>{{post.content}}</p>
+           </div>
+        <div>
+          {% if user.is_authenticated %}
+            <div class="col-md-6 mt-1 mb-4">
+            {% load crispy_forms_tags %}
+            <form method="POST">
+                {% csrf_token %}
+                {{form | crispy}}
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+            </div>
+          {% else %}
+            <a href="{% url 'register' %}" class="btn btn-success btn-sm">Sign Up to comment</a>
+          {% endif %}
+        </div>  
+
+
+      
+      <div class="row">
+        <div class="col-md-6">
+        <h3 class="my-4">{{comment.count}} Comments{{comm.pluralize}}</h3>
+        {% for comm in comment %}
+        <div class="comment_box">
+         <img width="30rem" height="30rem" style="border-radius:50%" src="{{comm.user.profile.image.url}}">
+          <blockquote class="mb-4 base blockquote">
+              <h4 class="auth">{{comm.user.username}}</h4>
+              <p class="date"><small>{{comm.date}}</small></p>
+              <p class="text-italic"><small>{{comm.content}} </small></p>
+              <h6 style="cursor:pointer" class="show text-primary">Reply</h6>
+          </blockquote>
+
+        </div>
+
+
+        <div class="ml-5">
+        <div style="display:none" class="data">
+          {% if user.is_authenticated %}
+                {% load crispy_forms_tags %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{comm.id}}">
+                    {{form | crispy}}
+                    <button type="submit" class="btn btn-warning mb-2">Reply</button>
+                </form>
+              {% else %}
+              {% endif %}
+          </div>
+
+
+      {% for reply in comm.replies.all %}
+         <div class="comment_box">
+            <img width="30rem" height="30rem" style="border-radius:50%" src="{{reply.user.profile.image.url}}"> 
+            <blockquote class="mb-4 blockquote base">
+                <h4> <span title="source title"><small>{{reply.user.username}}</h4>
+                <p class=" mt-1"><small>{{reply.date}}</small></p>
+                <p class="text-italic "><small>{{reply.content}}</small></p>
+            </blockquote>
+          </div>
+        {% endfor %}
+      
+      </div>
+        
+        {% endfor %}
+        </div>
+      </div>
+
+    </div>
+    
+</div>
+
+{% endblock%}

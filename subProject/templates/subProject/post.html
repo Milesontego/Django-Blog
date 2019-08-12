@@ -1,0 +1,25 @@
+{% extends 'subProject/base.html'%}
+
+{% block body%}
+{% load crispy_forms_tags %}
+<div class="row p-5">
+    <div class="box_post col-md-8 p-2">
+        {% for post in object_list %}
+          <div class="post">
+           <img class="img-fluid" src="{{post.picture.url}}">
+           <h4>{{post.title}}</h4>
+           <p>{{post.author}}</p>
+           <p>{{post.timestamp}}</p>
+           <p>{{post.content}}</p>
+           <a class="btn btn-outline-primary" href="{% url 'detail' post.id %}">Read more</a>
+          </div>
+        {% endfor %}
+
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3 bg-dark">
+        <h4>Hacking is in rusians </h4>
+    </div>
+</div>
+
+{% endblock %}
